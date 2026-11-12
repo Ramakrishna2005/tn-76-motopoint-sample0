@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TN76 Motopoint | Surandai</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (No extra heavy scripts) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Spline 3D -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
             theme: {
-                extend: { colors: { brand: '#ff5500', dark: '#09090b', glass: 'rgba(24, 24, 27, 0.7)' } }
+                extend: { colors: { brand: '#ff5500', dark: '#09090b' } }
             }
         }
     </script>
@@ -24,7 +22,7 @@
         body { background-color: #09090b; color: #ffffff; font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
         
         .glass-panel {
-            background: rgba(24, 24, 27, 0.6);
+            background: rgba(24, 24, 27, 0.7);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -37,7 +35,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .view-section { display: none; animation: fadeIn 0.3s ease-in-out; }
         .active-view { display: block; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -47,6 +45,14 @@
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #ff5500; }
+
+        /* Fast HD Hero Background */
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(9,9,11,0.5), rgba(9,9,11,1)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -63,10 +69,10 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex gap-8 items-center">
-                    <button onclick="switchTab('home-view')" class="nav-link text-gray-300 hover:text-brand font-semibold transition">Home</button>
-                    <button onclick="switchTab('products-view')" class="nav-link text-gray-300 hover:text-brand font-semibold transition">Products</button>
-                    <button onclick="switchTab('about-view')" class="nav-link text-gray-300 hover:text-brand font-semibold transition">About</button>
-                    <button onclick="switchTab('contact-view')" class="nav-link text-gray-300 hover:text-brand font-semibold transition">Address</button>
+                    <button onclick="switchTab('home-view')" class="text-gray-300 hover:text-brand font-semibold transition">Home</button>
+                    <button onclick="switchTab('products-view')" class="text-gray-300 hover:text-brand font-semibold transition">Products</button>
+                    <button onclick="switchTab('about-view')" class="text-gray-300 hover:text-brand font-semibold transition">About</button>
+                    <button onclick="switchTab('contact-view')" class="text-gray-300 hover:text-brand font-semibold transition">Address</button>
                     <button onclick="checkAdmin()" class="bg-brand hover:bg-orange-600 text-white px-5 py-2 rounded-lg font-bold transition shadow-[0_0_10px_rgba(255,85,0,0.3)]">
                         <i class="fas fa-lock mr-2"></i>Admin
                     </button>
@@ -96,17 +102,14 @@
     <!-- Main Content -->
     <main class="flex-grow pt-20">
         
-        <!-- 1. HOME VIEW -->
-        <section id="home-view" class="view-section active-view">
-            <div class="relative h-[85vh] flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 z-0 opacity-60">
-                    <spline-viewer url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"></spline-viewer>
-                </div>
+        <!-- 1. HOME VIEW (Fast Loading) -->
+        <section id="home-view" class="view-section active-view hero-bg">
+            <div class="relative h-[85vh] flex items-center justify-center">
                 <div class="relative z-10 text-center px-4">
-                    <span class="bg-brand/20 text-brand px-4 py-1 rounded-full text-sm font-bold tracking-widest border border-brand/30 uppercase mb-4 inline-block">Surandai's Best</span>
-                    <h1 class="text-5xl md:text-7xl font-black mb-4 uppercase">Upgrade Your <br><span class="text-gradient">Machine</span></h1>
-                    <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">High-performance exhausts, premium helmets, and custom modifications to make your bike stand out.</p>
-                    <button onclick="switchTab('products-view')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:scale-105 transition transform">View Catalog</button>
+                    <span class="bg-brand/20 text-brand px-4 py-1 rounded-full text-sm font-bold tracking-widest border border-brand/30 uppercase mb-4 inline-block shadow-lg">Surandai's Best</span>
+                    <h1 class="text-5xl md:text-7xl font-black mb-4 uppercase drop-shadow-xl">Upgrade Your <br><span class="text-gradient">Machine</span></h1>
+                    <p class="text-lg text-gray-300 mb-8 max-w-xl mx-auto drop-shadow-md">High-performance exhausts, premium helmets, and custom modifications to make your bike stand out.</p>
+                    <button onclick="switchTab('products-view')" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:scale-105 transition transform shadow-[0_0_20px_rgba(255,255,255,0.2)]">View Catalog</button>
                 </div>
             </div>
         </section>
@@ -132,17 +135,17 @@
                     <p class="text-lg">Welcome to <strong>TN76 Motopoint</strong>, the ultimate destination for bikers in and around Surandai. We breathe motorcycles and understand the passion of riding.</p>
                     <p class="text-lg">Founded with the vision to provide premium quality bike modifications, touring accessories, safety gears, and aesthetic upgrades, we ensure your machine not only looks good but performs at its peak.</p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                        <div class="bg-black/40 p-6 rounded-xl border border-white/5">
+                        <div class="bg-black/40 p-6 rounded-xl border border-white/5 hover:border-brand/50 transition">
                             <i class="fas fa-helmet-safety text-3xl text-brand mb-4"></i>
                             <h3 class="font-bold text-xl mb-2 text-white">Safety Gears</h3>
                             <p class="text-sm">Branded helmets, riding jackets, and gloves.</p>
                         </div>
-                        <div class="bg-black/40 p-6 rounded-xl border border-white/5">
+                        <div class="bg-black/40 p-6 rounded-xl border border-white/5 hover:border-brand/50 transition">
                             <i class="fas fa-motorcycle text-3xl text-brand mb-4"></i>
                             <h3 class="font-bold text-xl mb-2 text-white">Modifications</h3>
                             <p class="text-sm">Fog lights, visors, winglets, and exhaust systems.</p>
                         </div>
-                        <div class="bg-black/40 p-6 rounded-xl border border-white/5">
+                        <div class="bg-black/40 p-6 rounded-xl border border-white/5 hover:border-brand/50 transition">
                             <i class="fas fa-wrench text-3xl text-brand mb-4"></i>
                             <h3 class="font-bold text-xl mb-2 text-white">Quality Assured</h3>
                             <p class="text-sm">Only the best and trusted brands for your bike.</p>
@@ -198,10 +201,10 @@
                 <div class="glass-panel p-8 rounded-2xl w-full max-w-md text-center">
                     <i class="fas fa-user-shield text-4xl text-brand mb-4"></i>
                     <h2 class="text-2xl font-bold mb-6">Admin Secured Portal</h2>
-                    <input type="text" id="username" placeholder="Username" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white focus:border-brand outline-none">
-                    <input type="password" id="password" placeholder="Password" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-6 text-white focus:border-brand outline-none">
-                    <button onclick="login()" class="w-full bg-brand text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">Login Securely</button>
-                    <p id="error-msg" class="text-red-500 mt-4 hidden text-sm">Access Denied! Incorrect credentials.</p>
+                    <input type="text" id="username" placeholder="Username" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white focus:border-brand outline-none transition">
+                    <input type="password" id="password" placeholder="Password" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-6 text-white focus:border-brand outline-none transition">
+                    <button onclick="login()" class="w-full bg-brand text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition shadow-lg">Login Securely</button>
+                    <p id="error-msg" class="text-red-500 mt-4 hidden text-sm font-medium">Access Denied! Incorrect credentials.</p>
                 </div>
             </div>
         </section>
@@ -211,22 +214,22 @@
             <div class="max-w-7xl mx-auto px-4 py-12">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                     <h2 class="text-3xl font-bold"><span class="text-brand">Admin</span> Dashboard</h2>
-                    <button onclick="logout()" class="text-gray-400 hover:text-white mt-4 md:mt-0"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+                    <button onclick="logout()" class="text-gray-400 hover:text-white mt-4 md:mt-0 px-4 py-2 border border-gray-600 rounded-lg transition"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Add Product Form (WITH DIRECT UPLOAD) -->
-                    <div class="glass-panel p-6 rounded-2xl h-fit">
+                    <div class="glass-panel p-6 rounded-2xl h-fit border border-white/5">
                         <h3 class="text-xl font-bold mb-6 border-b border-white/10 pb-4">Add New Product</h3>
-                        <input type="text" id="add-name" placeholder="Product Name" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white outline-none focus:border-brand">
-                        <input type="number" id="add-price" placeholder="Price (₹)" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white outline-none focus:border-brand">
+                        <input type="text" id="add-name" placeholder="Product Name" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white outline-none focus:border-brand transition">
+                        <input type="number" id="add-price" placeholder="Price (₹)" class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 mb-4 text-white outline-none focus:border-brand transition">
                         
                         <!-- File Upload Button -->
                         <div class="mb-6 relative">
                             <input type="file" id="add-img-file" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
                             <button type="button" onclick="document.getElementById('add-img-file').click()" class="w-full bg-black/50 border border-white/10 border-dashed rounded-lg px-4 py-6 text-gray-400 hover:text-white hover:border-brand transition flex flex-col items-center">
-                                <i class="fas fa-cloud-upload-alt text-2xl mb-2"></i>
-                                <span id="upload-text">Upload Product Photo from Device</span>
+                                <i class="fas fa-cloud-upload-alt text-2xl mb-2 text-brand"></i>
+                                <span id="upload-text" class="text-sm font-medium">Upload Product Photo from Device</span>
                             </button>
                             <!-- Image Preview -->
                             <img id="img-preview" src="" class="hidden mt-4 w-full h-40 object-cover rounded-lg border border-white/10">
@@ -236,7 +239,7 @@
                     </div>
 
                     <!-- Inventory Table -->
-                    <div class="lg:col-span-2 glass-panel p-6 rounded-2xl overflow-hidden">
+                    <div class="lg:col-span-2 glass-panel p-6 rounded-2xl overflow-hidden border border-white/5">
                         <h3 class="text-xl font-bold mb-6 border-b border-white/10 pb-4">Live Inventory</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left">
@@ -259,8 +262,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="glass-panel mt-auto py-6 text-center text-gray-500 border-t border-white/10">
-        <p>&copy; 2026 TN76 Motopoint Surandai. All rights reserved.</p>
+    <footer class="bg-black/80 mt-auto py-6 text-center text-gray-500 border-t border-white/10">
+        <p class="text-sm">&copy; 2026 TN76 Motopoint Surandai. All rights reserved.</p>
     </footer>
 
     <script>
@@ -332,7 +335,7 @@
             grid.innerHTML = '';
             
             if(db.length === 0) {
-                grid.innerHTML = '<p class="text-gray-500 italic col-span-full text-center">Inventory updating soon...</p>';
+                grid.innerHTML = '<p class="text-gray-500 italic col-span-full text-center py-10">Inventory updating soon...</p>';
                 return;
             }
 
@@ -363,14 +366,12 @@
         function handleImageUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                // Convert image to Base64 to save in localStorage (Demo purpose)
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     currentUploadedImageBase64 = e.target.result;
-                    document.getElementById('upload-text').innerText = file.name;
+                    document.getElementById('upload-text').innerText = "Image Selected Successfully";
                     document.getElementById('upload-text').classList.add('text-brand');
                     
-                    // Show Preview
                     const preview = document.getElementById('img-preview');
                     preview.src = currentUploadedImageBase64;
                     preview.classList.remove('hidden');
@@ -403,7 +404,7 @@
         function addNewProduct() {
             const n = document.getElementById('add-name').value;
             const p = document.getElementById('add-price').value;
-            const i = currentUploadedImageBase64 || "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=500&q=80"; // Fallback image if no upload
+            const i = currentUploadedImageBase64 || "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=500&q=80";
 
             if(!n || !p) return alert("Product Name and Price are required!");
 
